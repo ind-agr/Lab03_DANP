@@ -3,19 +3,19 @@ package com.example.lab03_danp.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.lab03_danp.entities.Country
-import com.example.lab03_danp.model.CountryDao
+import com.example.lab03_danp.model.CountryRepository
 import java.io.IOException
 
 class CountryPagingSource(
-    private val countryRepository: CountryDao
+    private val countryRepository: CountryRepository
 ) : PagingSource<Int, Country>() {
 
     override val keyReuseSupported: Boolean = true
 
-    override suspend fun load(params: PagingSource.LoadParams<Int>): PagingSource.LoadResult<Int, Country> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Country> {
         return try {
             val nextPageNumber = params.key ?: 1
-            val countries = countryRepository.getCountries(nextPageNumber)
+            val countries = countryRepository.getCountries(nextPageNumber, params.loadSize)
 
             return PagingSource.LoadResult.Page(
                 data = countries ?: listOf(),
