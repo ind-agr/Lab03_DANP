@@ -17,4 +17,5 @@ interface CountryDao {
 
     @Query("DELETE FROM countries")
     suspend fun clearAll()
+    abstract fun getCountries(nextPageNumber: Int): List<Country>?
 }

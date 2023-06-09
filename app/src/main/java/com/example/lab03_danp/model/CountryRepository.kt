@@ -1,23 +1,15 @@
 package com.example.lab03_danp.model
 
-import android.util.Log
-import com.example.lab03_danp.entities.Country
-import org.json.JSONArray
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.liveData
+import com.example.lab03_danp.paging.CountryPagingSource
+import javax.inject.Inject
 
-class CountryRepository {
-    fun getCountries(nextPageNumber: Int): List<Country> {
-
-        Log.d("nextPageNumber:",nextPageNumber.toString())
-
-        val countries = arrayListOf<Country>()
-        var country: Country
-
-
-        return countries
-    }
-
-    
-
-
+class CountryRepository @Inject constructor(private val countryDao: CountryDao) {
+    fun getCountries()= Pager(
+        config = PagingConfig(pageSize = 20, maxSize = 100),
+        pagingSourceFactory = { CountryPagingSource(countryDao) }
+    ).liveData
 }
 

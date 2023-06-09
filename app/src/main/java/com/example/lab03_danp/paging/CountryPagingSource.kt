@@ -3,11 +3,11 @@ package com.example.lab03_danp.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.lab03_danp.entities.Country
-import com.example.lab03_danp.model.CountryRepository
+import com.example.lab03_danp.model.CountryDao
 import java.io.IOException
 
 class CountryPagingSource(
-    private val countryRepository: CountryRepository
+    private val countryRepository: CountryDao
 ) : PagingSource<Int, Country>() {
 
     override val keyReuseSupported: Boolean = true
